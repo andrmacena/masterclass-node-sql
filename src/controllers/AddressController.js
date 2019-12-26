@@ -9,23 +9,29 @@ module.exports = {
       const user = await User.findByPk(user_id)
 
       if (!user) {
-         return res.status(400).json('Usuário não encontrado!')
-      } 
+         return res.status(400).json('Usuário não existe!')
+      }
 
-         const address = await Address.create
-            ({
-               zipcode,
-               street,
-               number,
-               user_id
-            })
-         return res.json(address)
+      const address = await Address.create
+         ({
+            zipcode,
+            street,
+            number,
+            user_id
+         })
+      return res.json(address)
    },
 
-   async getUsers(req, res) {
-      const address = await Address.findAll()
+   async getAddresses(req, res) {
+      const { user_id } = req.params
 
-      return res.json(address)
+      const user = await User.findByPk(user_id, { include: { association: 'addresses' } })
+
+      if (!user) {
+         return res.status(400).json('Usuário não encontrado!')
+      }
+
+      return res.json(user)
 
    }
 }
