@@ -11,6 +11,7 @@ class User extends Model {
    //criando relacionamento entre os modelos
    static associate(models) {
       this.hasMany(models.Address, { foreignKey: 'user_id', as: 'addresses' })
+      this.belongsToMany(models.Tech, { foreignKey: 'user_id', through: 'user_techs', as: 'techs' })
 
    }
 }
