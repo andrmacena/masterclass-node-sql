@@ -12,9 +12,7 @@ class Address extends Model {
    //criando relacionamento entre os modelos
    static associate(models) {
       this.belongsTo(models.User, { foreignKey: 'user_id', as: 'owner' })
-
    }
-
 }
 
 module.exports = Address
